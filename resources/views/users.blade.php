@@ -15,6 +15,7 @@
         }
         .card {
             border-radius: 10px;
+            width: 100%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .heading{
@@ -42,7 +43,9 @@
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
-                            <th>Date</th>
+                            <th>Gender</th>
+                            <th>Course</th>
+                            <th>File Upload</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -54,7 +57,9 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone_number }}</td>
-                                    <td>{{ $item->created_at->format('d M Y') }}</td>
+                                    <td>{{ $item->gender}}</td>
+                                    <td>{{ $item->course}}</td>
+                                    <td>{{basename($item->profile_picture) }}</td>
                                     <td>
                                         <a href="/edit/{{ $item->id }}" class="btn btn-success btn-sm">Edit</a>
                                         <a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">Delete</a>

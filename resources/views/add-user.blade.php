@@ -47,7 +47,7 @@
                 @if (Session::has('fail'))
                     <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                 @endif
-                <form action="{{ route('AddUser') }}" method="post">
+                <form action="{{ route('AddUser') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
@@ -56,6 +56,7 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email">
@@ -63,6 +64,7 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    
                     <div class="mb-3">
                         <label class="form-label">Phone Number</label>
                         <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control" placeholder="Enter Phone Number">
@@ -70,6 +72,38 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <div>
+                            <input type="radio" name="gender" value="male" >Male
+                            <input type="radio" name="gender" value="female">Female
+                        </div>
+                        @error('gender')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Course</label>
+                        <select name="course" class="form-control">
+                            <option>Computer</option>
+                            <option>Information technology</option>
+                            <option>Civil</option>
+                        </select>
+                        @error('course')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Profile Picture</label>
+                        <input type="file" name="profile_picture"  class="form-control">
+                        @error('profile_picture')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <button type="submit" id="submit" class="btn btn-secondary">Save</button>
                 </form>
             </div>
