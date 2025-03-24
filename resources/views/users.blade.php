@@ -71,6 +71,11 @@
                                 <td colspan="6" class="text-center">No User Found!</td>
                             </tr>
                         @endif
+                        <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">Logout</button>
+                        </form>
                     </tbody>
                 </table>
             </div>
