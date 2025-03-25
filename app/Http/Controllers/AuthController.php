@@ -24,7 +24,9 @@ class AuthController extends Controller
  
         $user->save();
  
-        return back()->with('success', 'Register successfully');
+        return view('login')->with('success', 'Register successfully');
+
+
     }
  
     public function login()
@@ -43,7 +45,7 @@ class AuthController extends Controller
             return redirect('/users')->with('success', 'Login Success');
         }
  
-        return back()->with('error', 'Error Email or Password');
+        return view('users')->with('error', 'Error Email or Password');
     }
  
     public function logout()

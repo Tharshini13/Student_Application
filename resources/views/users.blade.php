@@ -59,7 +59,13 @@
                                     <td>{{ $item->phone_number }}</td>
                                     <td>{{ $item->gender}}</td>
                                     <td>{{ $item->course}}</td>
-                                    <td>{{basename($item->profile_picture) }}</td>
+                                    <td>
+                                    @if($item->profile_picture)
+                                        <a href="{{ asset('storage/' . $item->profile_picture) }}" download>Download File</a>
+                                    @else
+                                        No File Uploaded
+                                    @endif
+                                    </td>
                                     <td>
                                         <a href="/edit/{{ $item->id }}" class="btn btn-success btn-sm">Edit</a>
                                         <a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">Delete</a>

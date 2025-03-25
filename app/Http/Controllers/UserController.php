@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -25,7 +24,7 @@ class UserController extends Controller
             'phone_number' => 'required',
             'gender' => 'required',
             'course' => 'required|string',
-            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // File validation
+            'profile_picture' => 'nullable|file|max:5120', 
         ]);
 
         try {
@@ -39,7 +38,7 @@ class UserController extends Controller
             // Handle file upload
             if ($request->hasFile('profile_picture')) {
                 $file = $request->file('profile_picture');
-                $filePath = $file->store('uploads', 'public'); // Store in storage/app/public/uploads
+                $filePath = $file->store('uploads', 'public'); 
                 $new_user->profile_picture = $filePath;
             }
 
@@ -58,7 +57,7 @@ class UserController extends Controller
             'phone_number' => 'required',
             'gender' => 'required',
             'course' => 'required|string',
-            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // File validation
+            'profile_picture' => 'nullable|file|max:5120', 
         ]);
 
         try {
@@ -70,10 +69,10 @@ class UserController extends Controller
                 'course' => $request->course,
             ];
 
-            // Handle file upload if a new file is uploaded
+
             if ($request->hasFile('profile_picture')) {
                 $file = $request->file('profile_picture');
-                $filePath = $file->store('uploads', 'public'); // Store in storage/app/public/uploads
+                $filePath = $file->store('uploads', 'public');
                 $updateData['profile_picture'] = $filePath;
             }
 
@@ -87,21 +86,19 @@ class UserController extends Controller
 
     public function loadEditForm($id){
         $user = User::find($id);
-    
+
         if (!$user) {
             return redirect('/users')->with('fail', 'User not found!');
         }
-    
+
         return view('edit-user', compact('user'));
     }
-
-
 
     public function deleteUser($id){
         try {
             $user = User::find($id);
             if ($user->profile_picture) {
-                Storage::disk('public')->delete($user->profile_picture); // Delete stored file
+                Storage::disk('public')->delete($user->profile_picture); 
             }
             $user->delete();
             return redirect('/users')->with('success', 'User Deleted Successfully!');

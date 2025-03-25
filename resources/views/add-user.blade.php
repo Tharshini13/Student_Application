@@ -97,8 +97,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Profile Picture</label>
-                        <input type="file" name="profile_picture"  class="form-control">
+                    <label>Upload Any File (Optional):</label>
+                    <input type="file" name="profile_picture">
+
                         @error('profile_picture')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
