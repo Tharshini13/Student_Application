@@ -21,7 +21,7 @@ class UserController extends Controller
         $request->validate([
             'full_name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'phone_number' => 'required',
+            'phone_number' => 'required|unique:users,phone_number',
             'gender' => 'required',
             'course' => 'required|string',
             'profile_picture' => 'nullable|file|max:5120', 

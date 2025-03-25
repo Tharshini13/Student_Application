@@ -16,17 +16,18 @@ class AuthController extends Controller
  
     public function registerPost(Request $request)
     {
-        $user = new User();
- 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
- 
-        $user->save();
- 
-        return view('login')->with('success', 'Register successfully');
-
-
+        try {
+            // Create and save the user
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+    
+            return redirect()->route('login')->with('success', 'Registered successfully. Please log in.');
+        } catch (\Exception $e) {
+            return redirect()->route('register')->with('error', 'This email is already registered.');
+        }
     }
  
     public function login()
@@ -36,22 +37,23 @@ class AuthController extends Controller
  
     public function loginPost(Request $request)
     {
-        $credetials = [
+        $credentials = [
             'email' => $request->email,
             'password' => $request->password,
         ];
- 
-        if (Auth::attempt($credetials)) {
+    
+        if (Auth::attempt($credentials)) {
             return redirect('/users')->with('success', 'Login Success');
         }
- 
-        return view('users')->with('error', 'Error Email or Password');
+    
+        return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
+    
  
     public function logout()
     {
         Auth::logout();
  
-        return redirect()->route('login');
+        return redirect()->route('register');
     }
 }
