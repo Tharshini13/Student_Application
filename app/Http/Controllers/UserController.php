@@ -35,7 +35,7 @@ class UserController extends Controller
             $new_user->gender = $request->gender;
             $new_user->course = $request->course;
 
-            // Handle file upload
+
             if ($request->hasFile('profile_picture')) {
                 $file = $request->file('profile_picture');
                 $filePath = $file->store('uploads', 'public'); 

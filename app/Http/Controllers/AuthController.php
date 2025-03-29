@@ -46,7 +46,7 @@ class AuthController extends Controller
             return redirect('/users')->with('success', 'Login Success');
         }
     
-        return redirect()->route('login')->with('error', 'Invalid email or password.');
+        return redirect()->route('register')->with('error', 'Invalid email or password.');
     }
     
  
